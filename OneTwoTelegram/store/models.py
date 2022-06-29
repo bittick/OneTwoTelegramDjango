@@ -38,8 +38,6 @@ class SizesSneakers(models.Model):
     size_45 = models.IntegerField(default=0)
     size_46 = models.IntegerField(default=0)
 
-    def __str__(self):
-        return self.title
 
 
 
