@@ -17,13 +17,11 @@ class Products(models.Model):
 
 
 class Sneakers(Products):
-    pass
+    des = models.TextField()
 
 
 class SizesSneakers(models.Model):
     sneaker = models.OneToOneField('Sneakers', on_delete=models.CASCADE)
-    # sizes = models.PositiveSmallIntegerField(
-    #     validators=[MinValueValidator(34), MaxValueValidator(45)])
     size_34 = models.IntegerField(default=0)
     size_35 = models.IntegerField(default=0)
     size_36 = models.IntegerField(default=0)
