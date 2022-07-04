@@ -11,13 +11,33 @@ class Products(models.Model):
     brand = models.CharField(max_length=100)
     price = models.FloatField()
     description = models.TextField()
+    GENDERS = (
+        ("M", "Men"),
+        ("W", "Women"),
+        ("U", "Unisex"),
+    )
+    gender = models.CharField(max_length=2, choices=GENDERS)
 
     def __str__(self):
         return self.title
 
 
 class Sneakers(Products):
-    des = models.TextField()
+    sneaker_sizes = models.JSONField(default={
+            "34": 0,
+            "35": 0,
+            "36": 0,
+            "37": 0,
+            "38": 0,
+            "39": 0,
+            "40": 0,
+            "41": 0,
+            "42": 0,
+            "43": 0,
+            "44": 0,
+            "45": 0,
+        }
+    )
 
 
 class SizesSneakers(models.Model):
