@@ -23,21 +23,7 @@ class Products(models.Model):
 
 
 class Sneakers(Products):
-    sneaker_sizes = models.JSONField(default={
-            "34": 0,
-            "35": 0,
-            "36": 0,
-            "37": 0,
-            "38": 0,
-            "39": 0,
-            "40": 0,
-            "41": 0,
-            "42": 0,
-            "43": 0,
-            "44": 0,
-            "45": 0,
-        }
-    )
+    sneaker_sizes = models.JSONField(default={str(i): 0 for i in range(34, 46)})
 
 
 class SizesSneakers(models.Model):
