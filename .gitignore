@@ -132,3 +132,6 @@ dmypy.json
 
 migrations
 images
+
+/OneTwoTelegram/store/migrations/*
+!/OneTwoTelegram/store/migrations/__init__.py
