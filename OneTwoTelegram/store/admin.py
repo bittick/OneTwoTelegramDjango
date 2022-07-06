@@ -1,18 +1,20 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
+
 from .models import *
 
 
 @admin.register(Sneakers)
 class SneakersAdmin(admin.ModelAdmin):
     list_display = ('title', 'brand', 'price')
-    # list_editable = ('title', 'brand', 'price')
 
+    def get_image(self, obj):
+        return mark_safe(f'''<img src={obj.image1.url} height="100">'''
+                         f'''<img src={obj.image2.url} height="100">'''
+                         f'''<img src={obj.image3.url} height="100">'''
+                         # f'''<img src={obj.image4.url} height="100">'''
+                         # f'''<img src={obj.image5.url} height="100">'''
+                         # f'''<img src={obj.image6.url} height="100">'''
+                         )
 
-@admin.register(SizesSneakers)
-class SizeSneakersAdmin(admin.ModelAdmin):
-    list_display = ('size_34', 'size_35', 'size_36', 'size_37', 'size_38',
-                    'size_39', 'size_40', 'size_41', 'size_42', 'size_43', 'size_44',
-                    'size_45', 'size_46')
-    # list_display = ('sneaker', 'size_34', 'size_35', 'size_36', 'size_37', 'size_38',
-    #                 'size_39', 'size_40', 'size_41', 'size_42', 'size_43', 'size_44',
-    #                 'size_45', 'size_46')
+    readonly_fields = ('get_image',)

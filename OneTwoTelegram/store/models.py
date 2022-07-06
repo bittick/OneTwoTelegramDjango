@@ -24,23 +24,12 @@ class Products(models.Model):
 
 class Sneakers(Products):
     sneaker_sizes = models.JSONField(default={str(i): 0 for i in range(34, 46)})
-
-
-class SizesSneakers(models.Model):
-    sneaker = models.OneToOneField('Sneakers', on_delete=models.CASCADE)
-    size_34 = models.IntegerField(default=0)
-    size_35 = models.IntegerField(default=0)
-    size_36 = models.IntegerField(default=0)
-    size_37 = models.IntegerField(default=0)
-    size_38 = models.IntegerField(default=0)
-    size_39 = models.IntegerField(default=0)
-    size_40 = models.IntegerField(default=0)
-    size_41 = models.IntegerField(default=0)
-    size_42 = models.IntegerField(default=0)
-    size_43 = models.IntegerField(default=0)
-    size_44 = models.IntegerField(default=0)
-    size_45 = models.IntegerField(default=0)
-    size_46 = models.IntegerField(default=0)
+    image1 = models.ImageField(upload_to='images', blank=False)
+    image2 = models.ImageField(upload_to='images', blank=False, null=True)
+    image3 = models.ImageField(upload_to='images', blank=False, null=True)
+    image4 = models.ImageField(upload_to='images', blank=True)
+    image5 = models.ImageField(upload_to='images', blank=True)
+    image6 = models.ImageField(upload_to='images', blank=True)
 
 
 

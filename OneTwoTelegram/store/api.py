@@ -1,6 +1,6 @@
 from .models import *
 from rest_framework import viewsets, permissions
-from .serializers import SneakersSerializer, SizesSneakersSerializer
+from .serializers import SneakersSerializer
 
 
 class SneakersViewSet(viewsets.ModelViewSet):
