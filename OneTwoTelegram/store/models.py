@@ -1,7 +1,7 @@
-from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-
-# Create your models here.
+from PIL import Image as Img
+import io
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 
 class Products(models.Model):
@@ -22,14 +22,19 @@ class Products(models.Model):
         return self.title
 
 
+def get_default_sizes():
+    return {str(i): 0 for i in range(34, 46)}
+
+
 class Sneakers(Products):
-    sneaker_sizes = models.JSONField(default={str(i): 0 for i in range(34, 46)})
+    sneaker_sizes = models.JSONField(default=get_default_sizes)
     image1 = models.ImageField(upload_to='images', blank=False)
-    image2 = models.ImageField(upload_to='images', blank=False, null=True)
-    image3 = models.ImageField(upload_to='images', blank=False, null=True)
+    image2 = models.ImageField(upload_to='images', blank=False)
+    image3 = models.ImageField(upload_to='images', blank=False)
     image4 = models.ImageField(upload_to='images', blank=True)
     image5 = models.ImageField(upload_to='images', blank=True)
     image6 = models.ImageField(upload_to='images', blank=True)
+
 
 
 
