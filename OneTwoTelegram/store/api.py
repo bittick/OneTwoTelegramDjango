@@ -1,6 +1,8 @@
 from .models import *
 from rest_framework import viewsets, permissions
 from .serializers import *
+from rest_framework.decorators import api_view, action
+from rest_framework.response import Response
 
 
 class SneakersViewSet(viewsets.ModelViewSet):
@@ -45,3 +47,7 @@ class OrderListViewSet(viewsets.ModelViewSet):
     ]
     serializer_class = OrderListSerializer
     queryset = OrderList.objects.all()
+
+@api_view()
+def add_order(request):
+        return Response({"message": "Hello, world!"})
