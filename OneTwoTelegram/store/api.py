@@ -1,6 +1,6 @@
 from .models import *
 from rest_framework import viewsets, permissions
-from .serializers import SneakersSerializer
+from .serializers import *
 
 
 class SneakersViewSet(viewsets.ModelViewSet):
@@ -36,3 +36,12 @@ class SneakersViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(price__gte=min_price)
 
         return queryset
+
+
+class OrderListViewSet(viewsets.ModelViewSet):
+    http_method_names = ['post']
+    permission_classes = [
+        permissions.AllowAny
+    ]
+    serializer_class = OrderListSerializer
+    queryset = OrderList.objects.all()

@@ -23,6 +23,16 @@ class Product(models.Model):
 def get_default_sizes():
     return {str(i): 0 for i in range(34, 46)}
 
+def get_default_items():
+    return [
+        {
+            'sneaker_id': None,
+            'sneaker_title' : None,
+            'size' : None,
+            'quantity' : None,
+        }
+    for i in range(3)]
+
 
 class Sneaker(Product):
     sneaker_sizes = models.JSONField(default=get_default_sizes)
@@ -34,17 +44,8 @@ class Sneaker(Product):
     image6 = models.ImageField(upload_to='images', blank=True)
 
 
-class OrderItem(models.Model):
-    product = models.ForeignKey(to=Sneaker, on_delete=models.DO_NOTHING)
-    size = models.IntegerField(blank=False, null=False)
-    quantity = models.IntegerField(blank=False, null=False)
-
-    def __str__(self):
-        return f'{self.product} размер: {self.size} х{self.quantity} '
-
-
 class OrderList(models.Model):
-    items = models.ManyToManyField(to=OrderItem)
+    items = models.JSONField(default=get_default_items)
     customer = models.CharField(max_length=128)
     shipping_address = models.CharField(max_length=128)
     phone_number = models.CharField(max_length=11)

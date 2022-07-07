@@ -8,3 +8,10 @@ class SneakersSerializer(serializers.ModelSerializer):
         model = Sneaker
         fields = '__all__'
 
+
+class OrderListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = OrderList
+        fields = '__all__'
+

@@ -20,11 +20,19 @@ class SneakersAdmin(admin.ModelAdmin):
     readonly_fields = ('get_image',)
 
 
-@admin.register(OrderItem)
-class OrderItemAdmin(admin.ModelAdmin):
-    pass
-
-
 @admin.register(OrderList)
 class OrderListAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('registration_date', )
+
+    def get_items(self, obj):
+        text = ''
+
+        if isinstance(obj.items, list):
+            for item in obj.items:
+                text += f'Товар: {item["sneaker_title"]}, Размер: {item["size"]}, Количество: {item["quantity"]}\n'
+        else:
+            text = f'Товар: {obj.items["sneaker_title"]}, Размер: {obj.items["size"]}, Количество: {obj.items["quantity"]}'
+        return text
+
+    readonly_fields = ('get_items', )
+
