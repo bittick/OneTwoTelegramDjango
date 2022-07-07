@@ -5,6 +5,6 @@ from .models import *
 class SneakersSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Sneakers
+        model = Sneaker
         fields = '__all__'
 

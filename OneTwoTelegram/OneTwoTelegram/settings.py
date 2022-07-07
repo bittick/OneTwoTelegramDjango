@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'store.apps.StoreConfig',
     'corsheaders',
-    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [

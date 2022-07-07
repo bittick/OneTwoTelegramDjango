@@ -4,7 +4,7 @@ from django.utils.safestring import mark_safe
 from .models import *
 
 
-@admin.register(Sneakers)
+@admin.register(Sneaker)
 class SneakersAdmin(admin.ModelAdmin):
     list_display = ('title', 'brand', 'price')
 
@@ -18,3 +18,13 @@ class SneakersAdmin(admin.ModelAdmin):
                          )
 
     readonly_fields = ('get_image',)
+
+
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(OrderList)
+class OrderListAdmin(admin.ModelAdmin):
+    pass

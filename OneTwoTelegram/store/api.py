@@ -4,15 +4,15 @@ from .serializers import SneakersSerializer
 
 
 class SneakersViewSet(viewsets.ModelViewSet):
+    http_method_names = ['get']
     permission_classes = [
         permissions.AllowAny
     ]
     serializer_class = SneakersSerializer
 
     def get_queryset(self):
-        queryset = Sneakers.objects.all()
-
-        id = self.request.query_params.get('id')
+        queryset = Sneaker.objects.all()
+        sneaker_id = self.request.query_params.get('id')
         brand = self.request.query_params.get('brand')
         gender = self.request.query_params.get('gender')
         max_price = self.request.query_params.get('max')
@@ -23,8 +23,8 @@ class SneakersViewSet(viewsets.ModelViewSet):
         elif gender == 'W':
             queryset = queryset.exclude(gender='M')
 
-        if id is not None:
-            queryset = queryset.filter(id=id)
+        if sneaker_id is not None:
+            queryset = queryset.filter(id=sneaker_id)
 
         if brand is not None:
             queryset = queryset.filter(brand=brand)
