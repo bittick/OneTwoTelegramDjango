@@ -48,6 +48,9 @@ class OrderListViewSet(viewsets.ModelViewSet):
     serializer_class = OrderListSerializer
     queryset = OrderList.objects.all()
 
+
 @api_view()
 def add_order(request):
-        return Response({"message": "Hello, world!"})
+    a = OrderListSerializer(request.data).data
+    print(a)
+    return Response(200)

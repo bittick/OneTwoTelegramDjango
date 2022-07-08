@@ -45,7 +45,7 @@ class Sneaker(Product):
 
 
 class OrderList(models.Model):
-    items = models.JSONField(default=get_default_items)
+    items = models.JSONField()
     customer = models.CharField(max_length=128)
     shipping_address = models.CharField(max_length=128)
     phone_number = models.CharField(max_length=11)
