@@ -55,7 +55,7 @@ class OrderList(models.Model):
 
 
 class OrderItem(models.Model):
-    order_id = models.ForeignKey(to=OrderList, on_delete=models.PROTECT)
+    order_id = models.ForeignKey(to=OrderList, on_delete=models.PROTECT, related_name='order_items')
     sneaker_id = models.ForeignKey(to=Sneaker, on_delete=models.DO_NOTHING)
     sneaker_size = models.IntegerField()
     quantity = models.IntegerField()

@@ -9,8 +9,14 @@ class SneakersSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class OrderItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderItem
+        fields = '__all__'
+
+
 class OrderListSerializer(serializers.ModelSerializer):
-    delivered = serializers.StringRelatedField(many=True, read_only=True)
+    order_items = OrderItemSerializer(many=True)
 
     class Meta:
         model = OrderList

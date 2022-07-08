@@ -1,9 +1,10 @@
 from .models import *
 from rest_framework import viewsets, permissions
 from .serializers import *
-from rest_framework.decorators import api_view, action
+from rest_framework.decorators import api_view, action, parser_classes
 from rest_framework.response import Response
 import json
+from rest_framework.parsers import JSONParser
 
 class SneakersViewSet(viewsets.ModelViewSet):
     http_method_names = ['get']
@@ -41,7 +42,7 @@ class SneakersViewSet(viewsets.ModelViewSet):
 
 
 class OrderListViewSet(viewsets.ModelViewSet):
-    http_method_names = ['get']
+    http_method_names = ['get', 'post']
     permission_classes = [
         permissions.AllowAny
     ]
@@ -49,24 +50,33 @@ class OrderListViewSet(viewsets.ModelViewSet):
     queryset = OrderList.objects.all()
 
 
-@api_view(['POST'])
+@api_view(['POST', 'GET'])
+@parser_classes([JSONParser])
 def add_order(request):
-    OrderInfo = json.loads(request.data)
-    print(OrderInfo)
-    order = OrderList(
-        items=OrderInfo['items'],
-        customer=OrderInfo['customer'],
-        shipping_address=OrderInfo['shipping_address'],
-        phone_number=OrderInfo['phone_number']
-    )
-
-    order.save()
+    order_info = request
+    print(type(request), request.__dict__)
+    # order = OrderList(
+    #     customer=order_info['order_list']['customer'],
+    #     shipping_address=order_info['order_list']['shipping_address'],
+    #     phone_number=order_info['order_list']['phone_number']
+    # )
+    # print(order)
+    # # order.save()
+    # for item in order_info['order_items']:
+    #     cur_item = OrderItem(
+    #         order_id=order.id,
+    #         sneaker_id=item['sneaker_id'],
+    #         sneaker_size=item['sneaker_size'],
+    #         quantity=item['quantity']
+    #     )
+    #     print(cur_item)
+    #     # cur_item.save()
     return Response(200)
 
 
-@api_view(['GET'])
-def get_order(request):
-    list = OrderList.objects.all()
-    # items = list.order_idOf.all()
-    print(list)
-    return Response(list)
+# @api_view(['GET'])
+# def get_order(request):
+#     list = OrderList.objects.all()
+#     # items = list.order_idOf.all()
+#     a = json.dumps(list)
+#     return Response(a)
