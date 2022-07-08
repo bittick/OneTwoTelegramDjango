@@ -8,6 +8,7 @@ router.register('api/sneakers', SneakersViewSet, 'Sneakers')
 router.register('api/orderlist', OrderListViewSet, 'OrderList')
 
 urlpatterns = [
-    path('api/addorder', add_order)
+    path('api/addorder', add_order),
+    path('api/getorder', get_order)
 ] + router.urls
 

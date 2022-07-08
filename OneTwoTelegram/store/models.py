@@ -45,7 +45,6 @@ class Sneaker(Product):
 
 
 class OrderList(models.Model):
-    items = models.JSONField()
     customer = models.CharField(max_length=128)
     shipping_address = models.CharField(max_length=128)
     phone_number = models.CharField(max_length=11)
@@ -53,3 +52,10 @@ class OrderList(models.Model):
     edit_date = models.DateTimeField(auto_now=True)
     given_to_work = models.BooleanField(default=False)
     delivered = models.BooleanField(default=False)
+
+
+class OrderItem(models.Model):
+    order_id = models.ForeignKey(to=OrderList, on_delete=models.PROTECT)
+    sneaker_id = models.ForeignKey(to=Sneaker, on_delete=models.DO_NOTHING)
+    sneaker_size = models.IntegerField()
+    quantity = models.IntegerField()

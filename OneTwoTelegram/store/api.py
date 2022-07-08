@@ -41,7 +41,7 @@ class SneakersViewSet(viewsets.ModelViewSet):
 
 
 class OrderListViewSet(viewsets.ModelViewSet):
-    http_method_names = ['post']
+    http_method_names = ['get']
     permission_classes = [
         permissions.AllowAny
     ]
@@ -54,10 +54,19 @@ def add_order(request):
     OrderInfo = json.loads(request.data)
     print(OrderInfo)
     order = OrderList(
-        items = OrderInfo['items'],
-        customer = OrderInfo['customer'],
-        shipping_address = OrderInfo['shipping_address'],
-        phone_number = OrderInfo['phone_number']
+        items=OrderInfo['items'],
+        customer=OrderInfo['customer'],
+        shipping_address=OrderInfo['shipping_address'],
+        phone_number=OrderInfo['phone_number']
     )
+
     order.save()
     return Response(200)
+
+
+@api_view(['GET'])
+def get_order(request):
+    list = OrderList.objects.all()
+    # items = list.order_idOf.all()
+    print(list)
+    return Response(list)

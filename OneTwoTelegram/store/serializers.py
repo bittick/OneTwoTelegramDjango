@@ -10,6 +10,7 @@ class SneakersSerializer(serializers.ModelSerializer):
 
 
 class OrderListSerializer(serializers.ModelSerializer):
+    delivered = serializers.StringRelatedField(many=True, read_only=True)
 
     class Meta:
         model = OrderList

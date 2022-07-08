@@ -4,6 +4,10 @@ from django.utils.safestring import mark_safe
 from .models import *
 
 
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+
+
 @admin.register(Sneaker)
 class SneakersAdmin(admin.ModelAdmin):
     list_display = ('title', 'brand', 'price')
@@ -37,5 +41,9 @@ class OrderListAdmin(admin.ModelAdmin):
 
     list_display = ('registration_date', 'customer', 'given_to_work', 'delivered', 'phone_number')
 
-    
-    exclude=['items']
+    inlines = [
+        OrderItemInline,
+    ]
+
+
+
