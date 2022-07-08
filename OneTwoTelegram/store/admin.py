@@ -22,8 +22,7 @@ class SneakersAdmin(admin.ModelAdmin):
 
 @admin.register(OrderList)
 class OrderListAdmin(admin.ModelAdmin):
-    list_display = ('registration_date', )
-
+    
     def get_items(self, obj):
         text = ''
 
@@ -36,3 +35,7 @@ class OrderListAdmin(admin.ModelAdmin):
 
     readonly_fields = ('get_items', )
 
+    list_display = ('registration_date', 'customer', 'given_to_work', 'delivered', 'phone_number')
+
+    
+    exclude=['items']

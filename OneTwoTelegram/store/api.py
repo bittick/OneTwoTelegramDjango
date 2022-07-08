@@ -3,7 +3,7 @@ from rest_framework import viewsets, permissions
 from .serializers import *
 from rest_framework.decorators import api_view, action
 from rest_framework.response import Response
-
+import json
 
 class SneakersViewSet(viewsets.ModelViewSet):
     http_method_names = ['get']
@@ -49,8 +49,15 @@ class OrderListViewSet(viewsets.ModelViewSet):
     queryset = OrderList.objects.all()
 
 
-@api_view()
+@api_view(['POST'])
 def add_order(request):
-    a = OrderListSerializer(request.data).data
-    print(a)
+    OrderInfo = json.loads(request.data)
+    print(OrderInfo)
+    order = OrderList(
+        items = OrderInfo['items'],
+        customer = OrderInfo['customer'],
+        shipping_address = OrderInfo['shipping_address'],
+        phone_number = OrderInfo['phone_number']
+    )
+    order.save()
     return Response(200)
