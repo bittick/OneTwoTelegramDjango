@@ -1,10 +1,9 @@
 from .models import *
 from rest_framework import viewsets, permissions
 from .serializers import *
-from rest_framework.decorators import api_view, action, parser_classes
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 import json
-from rest_framework.parsers import JSONParser
 
 
 class SneakersViewSet(viewsets.ModelViewSet):
@@ -59,6 +58,7 @@ def add_order(request):
         shipping_address=order_info['order_list']['shipping_address'],
         phone_number=order_info['order_list']['phone_number']
     )
+    print(order)
     order.save()
     for item in order_info['order_items']:
         sneaker = Sneaker.objects.get(id=item['sneaker_id'])
@@ -68,5 +68,6 @@ def add_order(request):
             sneaker_size=item['sneaker_size'],
             quantity=item['quantity']
         )
+        print(cur_item)
         cur_item.save()
     return Response(200)
