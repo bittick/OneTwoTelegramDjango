@@ -6,22 +6,39 @@ from .models import *
 
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
+    extra = 0
+
+
+class SizesSneakerInline(admin.TabularInline):
+    model = SizesSneaker
+    min_num = 1
+    max_num = 1
 
 
 @admin.register(Sneaker)
 class SneakersAdmin(admin.ModelAdmin):
     list_display = ('title', 'brand', 'price')
 
-    def get_image(self, obj):
-        return mark_safe(f'''<img src={obj.image1.url} height="100">'''
-                         f'''<img src={obj.image2.url} height="100">'''
-                         f'''<img src={obj.image3.url} height="100">'''
-                         # f'''<img src={obj.image4.url} height="100">'''
-                         # f'''<img src={obj.image5.url} height="100">'''
-                         # f'''<img src={obj.image6.url} height="100">'''
-                         )
+    def get_images(self, obj):
+        html_images = f'''<img src={obj.image1.url} height="100">'''\
+                      + f'''<img src={obj.image2.url} height="100">'''\
+                      + f'''<img src={obj.image3.url} height="100">'''
+        if obj.image4:
+            html_images += f'''<img src={obj.image4.url} height="100">'''
+        if obj.image5:
+            html_images += f'''<img src={obj.image4.url} height="100">'''
+        if obj.image6:
+            html_images += f'''<img src={obj.image4.url} height="100">'''
+        return mark_safe(html_images)
 
-    readonly_fields = ('get_image',)
+    readonly_fields = ('get_images',)
+
+    inlines = [
+        SizesSneakerInline
+    ]
+
+    get_images.short_description = 'Фотографии'
+    Sneaker.image1.short_description = 'Фото'
 
 
 @admin.register(OrderList)
