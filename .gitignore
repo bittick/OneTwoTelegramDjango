@@ -130,8 +130,10 @@ dmypy.json
 .idea/*
 .env
 
-migrations
-images
 
-/OneTwoTelegram/store/migrations/*
-!/OneTwoTelegram/store/migrations/__init__.py
+/static/images/*
+
+/store/migrations/*
+!/store/migrations/__init__.py
+
+nuhup.out

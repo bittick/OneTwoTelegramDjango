@@ -3,6 +3,7 @@ from rest_framework import viewsets, permissions
 from .serializers import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import status
 import json
 
 
@@ -60,7 +61,7 @@ def add_order(request):
     )
     for item in order_info['order_items']:
         if not Sneaker.objects.filter(id=item['sneaker_id']).exists():
-            return Response('500 no such sneaker_id')
+            return Response({'e': 'No such sneaker_id'}, status.HTTP_400_BAD_REQUEST)
     order.save()
     for item in order_info['order_items']:
         sneaker = Sneaker.objects.get(id=item['sneaker_id'])
@@ -71,4 +72,16 @@ def add_order(request):
             quantity=item['quantity']
         )
         cur_item.save()
-    return Response(200)
+    return Response({'order_id': order.id}, status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def proof_of_payment(request):
+    order_id = json.loads(request.body.decode("utf-8"))['order_id']
+    print(order_id)
+    if not (OrderList.objects.filter(id=order_id).exists()):
+        return Response({'e': 'No such order'}, status.HTTP_400_BAD_REQUEST)
+    order = OrderList.objects.get(id=order_id)
+    order.is_paid = True
+    order.save()
+    return Response(status=status.HTTP_200_OK)

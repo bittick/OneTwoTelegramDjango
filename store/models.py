@@ -74,10 +74,11 @@ class OrderList(models.Model):
     customer = models.CharField(max_length=128, verbose_name='ФИО клиента')
     shipping_address = models.CharField(max_length=128, verbose_name='Адрес доставки')
     phone_number = models.CharField(max_length=11, verbose_name='Номер телефона')
-    registration_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
-    edit_date = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
+    is_paid = models.BooleanField(default=False, verbose_name='Оплата совершена')
     given_to_work = models.BooleanField(default=False, verbose_name='Отдано в работу')
     delivered = models.BooleanField(default=False, verbose_name='Доставлено')
+    registration_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
+    edit_date = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
 
 
 class OrderItem(models.Model):

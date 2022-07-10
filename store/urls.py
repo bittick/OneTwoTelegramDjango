@@ -9,5 +9,6 @@ router.register('api/orderlist', OrderListViewSet, 'OrderList')
 
 urlpatterns = [
     path('api/addorder', add_order),
+    path('api/proofpayment', proof_of_payment)
 ] + router.urls
 
