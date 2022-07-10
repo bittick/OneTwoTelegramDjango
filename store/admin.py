@@ -7,13 +7,13 @@ from .models import *
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
     extra = 0
-
+    classes = ('collapse',)
 
 class SizesSneakerInline(admin.StackedInline):
     model = SizesSneaker
     min_num = 1
     max_num = 1
-
+    classes = ('collapse', )
 
 @admin.register(Sneaker)
 class SneakersAdmin(admin.ModelAdmin):
