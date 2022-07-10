@@ -56,7 +56,7 @@ class OrderListAdmin(admin.ModelAdmin):
 
     readonly_fields = ('get_items', )
 
-    list_display = ('registration_date', 'customer', 'is_paid', 'given_to_work', 'delivered', 'phone_number')
+    list_display = ('id', 'registration_date', 'customer', 'is_paid', 'given_to_work', 'delivered', 'phone_number')
 
     inlines = [
         OrderItemInline,
