@@ -27,12 +27,12 @@ class Sneaker(Product):
         verbose_name = 'Кроссовки'
         verbose_name_plural = 'Кроссовки'
 
-    image1 = models.ImageField(upload_to='static/images', blank=False, verbose_name='Фото 1')
-    image2 = models.ImageField(upload_to='static/images', blank=False, verbose_name='Фото 2')
-    image3 = models.ImageField(upload_to='static/images', blank=False, verbose_name='Фото 3')
-    image4 = models.ImageField(upload_to='static/images', blank=True, verbose_name='Фото 4 (необязательно)')
-    image5 = models.ImageField(upload_to='static/images', blank=True, verbose_name='Фото 5 (необязательно)')
-    image6 = models.ImageField(upload_to='static/images', blank=True, verbose_name='Фото 6 (необязательно)')
+    image1 = models.ImageField(upload_to=http://static/'images', blank=False, verbose_name='Фото 1')
+    image2 = models.ImageField(upload_to='images', blank=False, verbose_name='Фото 2')
+    image3 = models.ImageField(upload_to='images', blank=False, verbose_name='Фото 3')
+    image4 = models.ImageField(upload_to='images', blank=True, verbose_name='Фото 4 (необязательно)')
+    image5 = models.ImageField(upload_to='images', blank=True, verbose_name='Фото 5 (необязательно)')
+    image6 = models.ImageField(upload_to='images', blank=True, verbose_name='Фото 6 (необязательно)')
 
 
 class SizesSneaker(models.Model):
@@ -89,4 +89,3 @@ class OrderItem(models.Model):
     sneaker_id = models.ForeignKey(to=Sneaker, on_delete=models.DO_NOTHING, verbose_name='Товар')
     sneaker_size = models.IntegerField(verbose_name='Размер')
     quantity = models.IntegerField(verbose_name='Количество')
-
