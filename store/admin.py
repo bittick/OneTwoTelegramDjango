@@ -9,7 +9,7 @@ class OrderItemInline(admin.TabularInline):
     extra = 0
 
 
-class SizesSneakerInline(admin.TabularInline):
+class SizesSneakerInline(admin.StackedInline):
     model = SizesSneaker
     min_num = 1
     max_num = 1
