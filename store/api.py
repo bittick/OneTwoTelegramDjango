@@ -57,7 +57,8 @@ def add_order(request):
     order = OrderList(
         customer=order_info['order_list']['customer'],
         shipping_address=order_info['order_list']['shipping_address'],
-        phone_number=order_info['order_list']['phone_number']
+        phone_number=order_info['order_list']['phone_number'],
+        is_paid=True
     )
     for item in order_info['order_items']:
         if not Sneaker.objects.filter(id=item['sneaker_id']).exists():
@@ -75,13 +76,6 @@ def add_order(request):
     return Response({'order_id': order.id}, status.HTTP_200_OK)
 
 
-@api_view(['POST'])
-def proof_of_payment(request):
-    order_id = json.loads(request.body.decode("utf-8"))['order_id']
-    print(order_id)
-    if not (OrderList.objects.filter(id=order_id).exists()):
-        return Response({'e': 'No such order'}, status.HTTP_400_BAD_REQUEST)
-    order = OrderList.objects.get(id=order_id)
-    order.is_paid = True
-    order.save()
+@api_view(['GET'])
+def check_server(request):
     return Response(status=status.HTTP_200_OK)
