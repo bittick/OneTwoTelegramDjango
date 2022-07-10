@@ -80,6 +80,9 @@ class OrderList(models.Model):
     registration_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
     edit_date = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
 
+    def __str__(self):
+        return f'Заказ №{self.id}'
+
 
 class OrderItem(models.Model):
     class Meta:
@@ -90,4 +93,3 @@ class OrderItem(models.Model):
     sneaker_id = models.ForeignKey(to=Sneaker, on_delete=models.DO_NOTHING, verbose_name='Товар')
     sneaker_size = models.IntegerField(verbose_name='Размер')
     quantity = models.IntegerField(verbose_name='Количество')
-
