@@ -1,4 +1,12 @@
+import string
+import uuid
+
 from django.db import models
+from numpy import random
+
+
+def id_generator(size=8):
+    return ''.join(str(random.choice(10)) for _ in range(size))
 
 
 class Product(models.Model):
@@ -71,6 +79,7 @@ class OrderList(models.Model):
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
 
+    order_id = models.CharField(max_length=6, null=True, blank=True, unique=True, verbose_name='Номер заказа')
     customer = models.CharField(max_length=128, verbose_name='ФИО клиента')
     shipping_address = models.CharField(max_length=128, verbose_name='Адрес доставки')
     phone_number = models.CharField(max_length=11, verbose_name='Номер телефона')
@@ -81,7 +90,15 @@ class OrderList(models.Model):
     edit_date = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
 
     def __str__(self):
-        return f'Заказ №{self.id}'
+        return f'Заказ №{self.order_id}'
+
+    def save(self):
+        if not self.order_id:
+            # Generate ID once, then check the db. If exists, keep trying.
+            self.order_id = id_generator()
+            while OrderList.objects.filter(order_id=self.order_id).exists():
+                self.order_id = id_generator()
+        super(OrderList, self).save()
 
 
 class OrderItem(models.Model):

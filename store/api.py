@@ -73,7 +73,7 @@ def add_order(request):
             quantity=item['quantity']
         )
         cur_item.save()
-    return Response({'order_id': order.id}, status.HTTP_200_OK)
+    return Response({'order_id': order.order_id}, status.HTTP_200_OK)
 
 
 @api_view(['GET'])
