@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'store.apps.StoreConfig',
+    'store_vegetables.apps.StoreVegetablesConfig',
     'corsheaders',
     'OneTwoTelegram'
 ]
