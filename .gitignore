@@ -136,4 +136,7 @@ dmypy.json
 /store/migrations/*
 !/store/migrations/__init__.py
 
+/store_vegetables/migrations/*
+!/store_vegetables/migrations/__init__.py
+
 nuhup.out
