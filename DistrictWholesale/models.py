@@ -1,7 +1,10 @@
 from django.db import models
 
 
-class Vegetable(models.Model):
+class Product(models.Model):
+    class Meta:
+        verbose_name = 'продукт'
+        verbose_name_plural = 'Список продуктов'
     title = models.CharField(max_length=150, verbose_name='Наименование')
     price = models.IntegerField(verbose_name='Цена')
     image1 = models.ImageField(upload_to='static/images', blank=False, verbose_name='Фото')
@@ -16,6 +19,9 @@ class Vegetable(models.Model):
 
 
 class Customer(models.Model):
+    class Meta:
+        verbose_name = 'Клиент'
+        verbose_name_plural = 'Клиенты'
     name = models.CharField(max_length=100, verbose_name='ФИО клиента')
     telegram_id = models.CharField(max_length=15, verbose_name='Telegram id')
     phone_number = models.CharField(max_length=11, verbose_name='Номер телефона')
@@ -28,6 +34,7 @@ class OrderList(models.Model):
     class Meta:
         verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
+        ordering = ('customer', 'is_paid', 'delivery_required')
 
     customer = models.ForeignKey(to=Customer, on_delete=models.PROTECT, verbose_name='ФИО клиента')
     shipping_address = models.CharField(max_length=128, verbose_name='Адрес доставки', blank=True)
@@ -47,5 +54,5 @@ class OrderItem(models.Model):
         verbose_name_plural = 'Список товаров'
 
     order_id = models.ForeignKey(to=OrderList, on_delete=models.PROTECT, related_name='order_items')
-    vegetable_id = models.ForeignKey(to=Vegetable, on_delete=models.DO_NOTHING, verbose_name='Товар')
+    product_id = models.ForeignKey(to=Product, on_delete=models.DO_NOTHING, verbose_name='Товар')
     quantity = models.IntegerField(verbose_name='Количество')

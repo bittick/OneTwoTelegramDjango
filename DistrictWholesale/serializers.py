@@ -4,7 +4,7 @@ from .models import *
 
 class VegetableSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Vegetable
+        model = Product
         fields = '__all__'
 
 

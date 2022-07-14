@@ -8,7 +8,7 @@ import json
 
 
 class VegetablesViewSet(viewsets.ModelViewSet):
-    queryset = Vegetable.objects.all()
+    queryset = Product.objects.all()
     http_method_names = ['get']
     permission_classes = [
         permissions.AllowAny
@@ -48,11 +48,11 @@ def add_order(request):
         delivery_required=order_info['delivery_required']
     )
     for item in order_info['order_items']:
-        if not Vegetable.objects.filter(id=item['vegetable_id']).exists():
+        if not Product.objects.filter(id=item['vegetable_id']).exists():
             return Response({'e': 'No such vegetable_id'}, status.HTTP_400_BAD_REQUEST)
     order.save()
     for item in order_info['order_items']:
-        vegetable = Vegetable.objects.get(id=item['vegetable_id'])
+        vegetable = Product.objects.get(id=item['vegetable_id'])
         cur_item = OrderItem(
             order_id=order,
             vegetable_id=vegetable,

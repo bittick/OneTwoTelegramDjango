@@ -10,7 +10,7 @@ class OrderItemInline(admin.TabularInline):
     classes = ('collapse',)
 
 
-@admin.register(Vegetable)
+@admin.register(Product)
 class VegetableAdmin(admin.ModelAdmin):
     list_display = ('title', 'price')
 
