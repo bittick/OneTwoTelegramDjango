@@ -11,4 +11,3 @@ urlpatterns = [
     path('api/addorder', add_order),
     path('api/check', check_server)
 ] + router.urls
-

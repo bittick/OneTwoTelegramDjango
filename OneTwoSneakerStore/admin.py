@@ -53,7 +53,8 @@ class SneakersAdmin(admin.ModelAdmin):
 class OrderListAdmin(admin.ModelAdmin):
     fields = ('order_id', 'customer', 'phone_number', 'shipping_address', 'is_paid', 'given_to_work', 'delivered',
               'registration_date', 'edit_date')
-    list_display = ('order_id', 'registration_date', 'customer', 'is_paid', 'given_to_work', 'delivered', 'phone_number')
+    list_display = (
+        'order_id', 'registration_date', 'customer', 'is_paid', 'given_to_work', 'delivered', 'phone_number')
     search_fields = ('order_id', 'customer')
     readonly_fields = ('order_id', 'registration_date', 'edit_date')
     inlines = [

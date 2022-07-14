@@ -72,4 +72,3 @@ def add_customer(request):
     )
     customer.save()
     return Response({'customer_id': customer.id}, status.HTTP_200_OK)
-
