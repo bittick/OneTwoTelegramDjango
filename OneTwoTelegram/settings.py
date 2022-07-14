@@ -41,10 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'store.apps.StoreConfig',
-    'store_vegetables.apps.StoreVegetablesConfig',
+    'OneTwoSneakerStore.apps.OneTwoSneakerStoreConfig',
+    'DistrictWholesale.apps.DistrictWholesaleConfig',
     'corsheaders',
-    'OneTwoTelegram'
+    'OneTwoTelegram',
 ]
 
 MIDDLEWARE = [

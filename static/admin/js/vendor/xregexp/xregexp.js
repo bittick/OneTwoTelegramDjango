@@ -4290,7 +4290,7 @@ fixed.replace = function(search, replacement) {
             var args = arguments;
             var i;
             if (captureNames) {
-                // Change the `arguments[0]` string primitive to a `String` object that can store
+                // Change the `arguments[0]` string primitive to a `String` object that can OneTwoSneakerStore
                 // properties. This really does need to use `String` as a constructor
                 args[0] = new String(args[0]);
                 // Store named backreferences on the first argument

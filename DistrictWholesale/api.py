@@ -44,7 +44,8 @@ def add_order(request):
         customer=current_customer,
         shipping_address=order_info['shipping_address'],
         comment=order_info['comment'],
-        is_paid=False
+        is_paid=False,
+        delivery_required=order_info['delivery_required']
     )
     for item in order_info['order_items']:
         if not Vegetable.objects.filter(id=item['vegetable_id']).exists():

@@ -30,8 +30,9 @@ class OrderList(models.Model):
         verbose_name_plural = 'Заказы'
 
     customer = models.ForeignKey(to=Customer, on_delete=models.PROTECT, verbose_name='ФИО клиента')
-    shipping_address = models.CharField(max_length=128, verbose_name='Адрес доставки')
+    shipping_address = models.CharField(max_length=128, verbose_name='Адрес доставки', blank=True)
     is_paid = models.BooleanField(default=False, verbose_name='Оплата совершена')
+    delivery_required = models.BooleanField(default=False, verbose_name='Требуется доставка')
     registration_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
     edit_date = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
     comment = models.CharField(max_length=2000, blank=True, verbose_name='Комментарий')

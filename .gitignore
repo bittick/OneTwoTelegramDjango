@@ -133,10 +133,12 @@ dmypy.json
 
 /static/images/*
 
-/store/migrations/*
-!/store/migrations/__init__.py
+/OneTwoSneakerStore/migrations/*
+!/OneTwoSneakerStore/migrations/__init__.py
 
-/store_vegetables/migrations/*
-!/store_vegetables/migrations/__init__.py
-
+/DistrictWholesale/migrations/*
+!/DistrictWholesale/migrations/__init__.py
 nuhup.out
+
+media/images/*
+media/static/images/*
