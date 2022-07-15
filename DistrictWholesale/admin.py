@@ -35,13 +35,14 @@ class VegetableAdmin(admin.ModelAdmin):
 
 @admin.register(OrderList)
 class OrderListAdmin(admin.ModelAdmin):
-    fields = ('customer', 'shipping_address', 'is_paid', 'registration_date', 'edit_date')
-    list_display = ('registration_date', 'customer', 'is_paid')
+    fields = ('customer', 'shipping_address', 'is_paid','delivery_required' , 'is_delivered','registration_date', 'edit_date')
+    list_display = ('registration_date', 'customer', 'is_paid', 'is_delivered', 'delivery_required',)
     search_fields = ('customer', )
     readonly_fields = ('registration_date', 'edit_date')
     inlines = [
         OrderItemInline,
     ]
+    list_filter = ('is_delivered', 'delivery_required','is_paid', 'registration_date')
 
 
 @admin.register(Customer)
