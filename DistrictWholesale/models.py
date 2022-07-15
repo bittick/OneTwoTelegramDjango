@@ -11,6 +11,7 @@ class Product(models.Model):
     WEIGHTS = (
         ("G", "грамм"),
         ("KG", "килограмм"),
+        ("UN", "штука")
     )
     weight = models.CharField(max_length=2, choices=WEIGHTS, verbose_name='Еденица измерения массы')
 
@@ -39,6 +40,7 @@ class OrderList(models.Model):
     customer = models.ForeignKey(to=Customer, on_delete=models.PROTECT, verbose_name='ФИО клиента')
     shipping_address = models.CharField(max_length=128, verbose_name='Адрес доставки', blank=True)
     is_paid = models.BooleanField(default=False, verbose_name='Оплата совершена')
+    is_delivered = models.BooleanField(default=False, verbose_name='Заказ доставлен')
     delivery_required = models.BooleanField(default=False, verbose_name='Требуется доставка')
     registration_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
     edit_date = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
@@ -56,3 +58,4 @@ class OrderItem(models.Model):
     order_id = models.ForeignKey(to=OrderList, on_delete=models.PROTECT, related_name='order_items')
     product_id = models.ForeignKey(to=Product, on_delete=models.DO_NOTHING, verbose_name='Товар')
     quantity = models.IntegerField(verbose_name='Количество')
+    

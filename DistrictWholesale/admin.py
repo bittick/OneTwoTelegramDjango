@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
+from numpy import product
 
 from .models import *
 
@@ -8,7 +9,17 @@ class OrderItemInline(admin.TabularInline):
     model = OrderItem
     extra = 0
     classes = ('collapse',)
-
+    
+    def get_weight(self, obj):
+        if obj.product_id.weight == "UN":
+            return "ШТ"
+        elif obj.product_id.weight == "KG":
+            return "КГ"
+        else:
+            return "Г"
+            
+    get_weight.short_description = 'Единицы измерения'
+    readonly_fields = ('get_weight', )
 
 @admin.register(Product)
 class VegetableAdmin(admin.ModelAdmin):

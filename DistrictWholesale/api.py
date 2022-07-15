@@ -1,3 +1,4 @@
+from resource import prlimit
 from .models import *
 from rest_framework import viewsets, permissions
 from .serializers import *
@@ -39,7 +40,7 @@ class CustomersViewSet(viewsets.ModelViewSet):
 def add_order(request):
     order_info = json.loads(request.body.decode("utf-8"))
     current_customer = Customer.objects.get(telegram_id=order_info['customer_tg_id'])
-    print(current_customer)
+    print(type(order_info), order_info)
     order = OrderList(
         customer=current_customer,
         shipping_address=order_info['shipping_address'],
@@ -52,10 +53,11 @@ def add_order(request):
             return Response({'e': 'No such vegetable_id'}, status.HTTP_400_BAD_REQUEST)
     order.save()
     for item in order_info['order_items']:
+        print(item['vegetable_id'])
         vegetable = Product.objects.get(id=item['vegetable_id'])
         cur_item = OrderItem(
             order_id=order,
-            vegetable_id=vegetable,
+            product_id=vegetable,
             quantity=item['quantity']
         )
         cur_item.save()
