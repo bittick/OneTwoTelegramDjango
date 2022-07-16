@@ -1,4 +1,3 @@
-from resource import prlimit
 from .models import *
 from rest_framework import viewsets, permissions
 from .serializers import *

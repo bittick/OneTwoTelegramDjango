@@ -21,6 +21,7 @@ class OrderItemInline(admin.TabularInline):
     get_weight.short_description = 'Единицы измерения'
     readonly_fields = ('get_weight', )
 
+
 @admin.register(Product)
 class VegetableAdmin(admin.ModelAdmin):
     list_display = ('title', 'price')
@@ -53,6 +54,6 @@ class OrderListAdmin(admin.ModelAdmin):
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    fields = ('name', 'telegram_id', 'phone_number')
-    list_display = ('name', 'telegram_id', 'phone_number')
+    fields = ('name', 'telegram_id', 'phone_number', 'discount')
+    list_display = ('name', 'telegram_id', 'phone_number', 'discount')
     search_fields = ('name', )
