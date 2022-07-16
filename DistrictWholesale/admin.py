@@ -40,12 +40,23 @@ class OrderListAdmin(admin.ModelAdmin):
     def get_phone_number(self, obj):
         return obj.customer.phone_number
 
-    get_phone_number.short_description = 'Номер телефона клиента'    
-    
-    fields = ('customer', 'get_phone_number', 'comment' , 'shipping_address', 'is_paid','delivery_required' , 'is_delivered','registration_date', 'edit_date')
-    list_display = ('registration_date', 'customer', 'is_paid', 'is_delivered', 'delivery_required', 'get_phone_number' ,)
+    def get_total_cost(self, obj):
+        items = OrderItem.objects.filter(order_id=obj.id)
+        total_cost = 0
+        for item in items:
+            if item.product_id.weight == 'G':
+                total_cost += item.quantity * item.product_id.price / 100
+            else:
+                total_cost += item.quantity * item.product_id.price
+        return total_cost
+
+    get_phone_number.short_description = 'Номер телефона клиента'
+    get_total_cost.short_description = 'Стоимость заказа'
+
+    fields = ('customer', 'get_phone_number', 'comment' , 'shipping_address', 'is_paid','delivery_required' , 'is_delivered','registration_date', 'edit_date', 'get_total_cost')
+    list_display = ('registration_date', 'customer', 'is_paid', 'is_delivered', 'delivery_required', 'get_phone_number')
     search_fields = ('customer', )
-    readonly_fields = ('registration_date', 'edit_date', 'get_phone_number' , 'comment')
+    readonly_fields = ('registration_date', 'edit_date', 'get_phone_number' , 'comment', 'get_total_cost')
     inlines = [
         OrderItemInline,
     ]
