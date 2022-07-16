@@ -35,10 +35,16 @@ class VegetableAdmin(admin.ModelAdmin):
 
 @admin.register(OrderList)
 class OrderListAdmin(admin.ModelAdmin):
-    fields = ('customer', 'shipping_address', 'is_paid','delivery_required' , 'is_delivered','registration_date', 'edit_date')
-    list_display = ('registration_date', 'customer', 'is_paid', 'is_delivered', 'delivery_required',)
+    
+    def get_phone_number(self, obj):
+        return obj.customer.phone_number
+
+    get_phone_number.short_description = 'Номер телефона клиента'    
+    
+    fields = ('customer', 'get_phone_number', 'comment' , 'shipping_address', 'is_paid','delivery_required' , 'is_delivered','registration_date', 'edit_date')
+    list_display = ('registration_date', 'customer', 'is_paid', 'is_delivered', 'delivery_required', 'get_phone_number' ,)
     search_fields = ('customer', )
-    readonly_fields = ('registration_date', 'edit_date')
+    readonly_fields = ('registration_date', 'edit_date', 'get_phone_number' , 'comment')
     inlines = [
         OrderItemInline,
     ]
