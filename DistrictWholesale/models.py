@@ -26,7 +26,7 @@ class Customer(models.Model):
     name = models.CharField(max_length=100, verbose_name='ФИО клиента')
     telegram_id = models.CharField(max_length=15, verbose_name='Telegram id')
     phone_number = models.CharField(max_length=11, verbose_name='Номер телефона')
-    discount = models.PositiveIntegerField(blank=True, null=True)
+    discount = models.PositiveIntegerField(blank=True, default=0, null=True)
 
     def __str__(self):
         return self.name
