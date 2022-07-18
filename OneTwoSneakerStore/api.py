@@ -15,29 +15,38 @@ class SneakersViewSet(viewsets.ModelViewSet):
     serializer_class = SneakersSerializer
 
     def get_queryset(self):
+
+        # filter_params = json.loads(self.request.body.decode("utf-8"))
+
+        print(self.request.body)
+
         queryset = Sneaker.objects.all()
-        sneaker_id = self.request.query_params.get('id')
-        brand = self.request.query_params.get('brand')
-        gender = self.request.query_params.get('gender')
-        max_price = self.request.query_params.get('max')
-        min_price = self.request.query_params.get('min')
-
-        if gender == 'M':
-            queryset = queryset.exclude(gender='W')
-        elif gender == 'W':
-            queryset = queryset.exclude(gender='M')
-
-        if sneaker_id is not None:
-            queryset = queryset.filter(id=sneaker_id)
-
-        if brand is not None:
-            queryset = queryset.filter(brand=brand)
-
-        if max_price is not None:
-            queryset = queryset.filter(price__lte=max_price)
-
-        if min_price is not None:
-            queryset = queryset.filter(price__gte=min_price)
+        # sneaker_id = filter_params['id']
+        # brand = filter_params['brand']
+        # gender = filter_params['gender']
+        # max_price = filter_params['max_price']
+        # min_price = filter_params['min_price']
+        # sizes = filter_params['sizes']
+        #
+        # if gender == 'M':
+        #     queryset = queryset.exclude(gender='W')
+        # elif gender == 'W':
+        #     queryset = queryset.exclude(gender='M')
+        #
+        # if sneaker_id is not None:
+        #     queryset = queryset.filter(id=sneaker_id)
+        #
+        # if brand is not None:
+        #     queryset = queryset.filter(brand=brand)
+        #
+        # if max_price is not None:
+        #     queryset = queryset.filter(price__lte=max_price)
+        #
+        # if min_price is not None:
+        #     queryset = queryset.filter(price__gte=min_price)
+        #
+        # if sizes is not None:
+        #     queryset = queryset.filter()
 
         return queryset
 
@@ -78,4 +87,12 @@ def add_order(request):
 
 @api_view(['GET'])
 def check_server(request):
+    return Response(status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def get_sneakers(request):
+    print(request.body)
+    for i in Sneaker.objects.all():
+        print(i.brand)
     return Response(status=status.HTTP_200_OK)

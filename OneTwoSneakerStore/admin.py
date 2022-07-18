@@ -14,7 +14,6 @@ class SizesSneakerInline(admin.StackedInline):
     model = SizesSneaker
     min_num = 1
     max_num = 1
-    classes = ('collapse',)
     fields = (('size_350', 'size_355', 'size_360', 'size_365'),
               ('size_370', 'size_375', 'size_380', 'size_385'),
               ('size_390', 'size_400', 'size_405', 'size_410'),
@@ -59,3 +58,9 @@ class OrderListAdmin(admin.ModelAdmin):
     inlines = [
         OrderItemInline,
     ]
+
+
+@admin.register(Brand)
+class OrderListAdmin(admin.ModelAdmin):
+    fields = ('title', )
+    list_display = ('id', 'title')
