@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 import json
+from django.forms.models import model_to_dict
 
 
 class SneakersViewSet(viewsets.ModelViewSet):
@@ -79,3 +80,38 @@ def add_order(request):
 @api_view(['GET'])
 def check_server(request):
     return Response(status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def filter_sneakers(request):
+    filter_data = json.loads(request.body)
+    keys = list(filter_data.keys())
+    kwargs = {}
+    response = []
+    if keys == ['sizes']:
+        sneakers = Sneaker.objects.all()
+    else:
+        if 'brand' in keys:
+            kwargs['brand'] = Brand.objects.get(title=filter_data['brand'])
+        if 'gender' in keys:
+            kwargs['gender'] = filter_data['gender']
+        if 'color' in keys:
+            kwargs['color'] = filter_data['color']
+        if 'min_price' in keys:
+            kwargs['price__gte'] = filter_data['min_price']
+        if 'max_price' in keys:
+            kwargs['price__lte'] = filter_data['max_price']
+        sneakers = Sneaker.objects.filter(**kwargs)
+    if 'sizes' in keys:
+        sizes = []
+        for i in filter_data['sizes']:
+            sizes.append('size_' + i)
+        tmp = []
+        for sneaker in sneakers:
+            for size in sizes:
+                if getattr(sneaker.sizes, size, False):
+                    tmp.append(sneaker)
+                    break
+        sneakers = tmp
+    response = [SneakersSerializer(x).data for x in sneakers]
+    return Response(response, status=status.HTTP_200_OK)

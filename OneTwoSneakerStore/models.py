@@ -9,12 +9,19 @@ def id_generator(size=8):
     return ''.join(str(random.choice(10)) for _ in range(size))
 
 
+class Brand(models.Model):
+    title = models.CharField(max_length=50, verbose_name='Название бренда')
+
+    def __str__(self):
+        return self.title
+
+
 class Product(models.Model):
     class Meta:
         abstract = True
 
     title = models.CharField(max_length=100, verbose_name='Наименование')
-    brand = models.CharField(max_length=100, verbose_name='Брэнд')
+    brand = models.ForeignKey(to=Brand, verbose_name='Брэнд', on_delete=models.PROTECT)
     price = models.FloatField(verbose_name='Цена')
     description = models.TextField(verbose_name='Описание')
     GENDERS = (
@@ -23,6 +30,10 @@ class Product(models.Model):
         ("U", "Unisex"),
     )
     gender = models.CharField(max_length=2, choices=GENDERS, verbose_name='Пол')
+    color = models.CharField(max_length=30, verbose_name='Цвета')
+    producing_country = models.CharField(max_length=50)
+    tags = models.CharField(max_length=1000)
+    composition = models.CharField(max_length=1000)
 
     def __str__(self):
         return self.title
