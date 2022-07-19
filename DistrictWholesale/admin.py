@@ -24,7 +24,7 @@ class OrderItemInline(admin.TabularInline):
 
 @admin.register(Product)
 class VegetableAdmin(admin.ModelAdmin):
-    list_display = ('title', 'price')
+    list_display = ('title', 'price','product_cat')
 
     def get_images(self, obj):
         html_images = f'''<img src={obj.image1.url} height="100">'''
@@ -32,6 +32,7 @@ class VegetableAdmin(admin.ModelAdmin):
 
     readonly_fields = ('get_images',)
     get_images.short_description = 'Фото'
+    list_editable = ('product_cat', )
 
 
 @admin.register(OrderList)

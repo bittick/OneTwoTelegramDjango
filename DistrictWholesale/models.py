@@ -25,7 +25,7 @@ class Product(models.Model):
         ("UN", "штука")
     )
     weight = models.CharField(max_length=2, choices=WEIGHTS, verbose_name='Еденица измерения массы')
-    product_cat = models.ForeignKey(to=Category, on_delete=models.PROTECT, blank=True, null=True, verbose_name='Категория товара')
+    product_cat = models.ForeignKey(to=Category, on_delete=models.PROTECT, verbose_name='Категория товара')
 
     def __str__(self):
         return self.title
