@@ -56,7 +56,7 @@ class OrderListAdmin(admin.ModelAdmin):
     fields = ('customer', 'get_phone_number', 'comment' , 'shipping_address', 'is_paid','delivery_required' , 'is_delivered','registration_date', 'edit_date', 'get_total_cost')
     list_display = ('registration_date', 'customer', 'is_paid', 'is_delivered', 'delivery_required', 'get_phone_number')
     search_fields = ('customer', )
-    readonly_fields = ('registration_date', 'edit_date', 'get_phone_number' , 'comment', 'get_total_cost')
+    readonly_fields = ('registration_date', 'edit_date', 'get_phone_number', 'get_total_cost')
     inlines = [
         OrderItemInline,
     ]
