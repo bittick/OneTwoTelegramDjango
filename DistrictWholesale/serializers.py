@@ -3,6 +3,8 @@ from .models import *
 
 
 class VegetableSerializer(serializers.ModelSerializer):
+    product_cat = serializers.StringRelatedField()
+
     class Meta:
         model = Product
         fields = '__all__'

@@ -50,31 +50,27 @@ def check_server(request):
 
 @api_view(['POST'])
 def filter_sneakers(request):
-    print(request)
     filter_data = json.loads(request.body)
     keys = list(filter_data.keys())
     kwargs = {}
     response = []
-    if keys == ['sizes']:
-        sneakers = Sneaker.objects.all()
-    else:
-        if 'brand' in keys:
-            brands = []
-            for brand in filter_data['brand']:
-                brands.append(Brand.objects.get(title=brand))
-            kwargs['brand__in'] = brands
-        if 'color' in keys:
-            kwargs['color__in'] = filter_data['color']
-        if 'min_price' in keys:
-            kwargs['price__gte'] = filter_data['min_price']
-        if 'max_price' in keys:
-            kwargs['price__lte'] = filter_data['max_price']
-        sneakers = Sneaker.objects.filter(**kwargs)
-        if 'gender' in keys:
-            if filter_data == 'M':
-                sneakers = sneakers.exclude(gender='W')
-            elif filter_data == 'W':
-                sneakers = sneakers.exclude(gender='M')
+    if 'brand' in keys:
+        brands = []
+        for brand in filter_data['brand']:
+            brands.append(Brand.objects.get(title=brand))
+        kwargs['brand__in'] = brands
+    if 'color' in keys:
+        kwargs['color__in'] = filter_data['color']
+    if 'min_price' in keys:
+        kwargs['price__gte'] = filter_data['min_price']
+    if 'max_price' in keys:
+        kwargs['price__lte'] = filter_data['max_price']
+    sneakers = Sneaker.objects.filter(**kwargs)
+    if 'gender' in keys:
+        if filter_data == 'M':
+            sneakers = sneakers.exclude(gender='W')
+        elif filter_data == 'W':
+            sneakers = sneakers.exclude(gender='M')
     if 'sizes' in keys:
         sizes = []
         for i in filter_data['sizes']:

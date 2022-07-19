@@ -9,4 +9,5 @@ router.register('api2/customers', CustomersViewSet, 'Customers')
 urlpatterns = [
     path('api2/addcustomer', add_customer),
     path('api2/addorder', add_order),
+    path('api2/products/filter', filter_products)
 ] + router.urls

@@ -36,6 +36,21 @@ class CustomersViewSet(viewsets.ModelViewSet):
 
 
 @api_view(['POST'])
+def filter_products(request):
+    filter_data = json.loads(request.body)
+    keys = list(filter_data.keys())
+    kwargs = {}
+    if 'category' in keys:
+        categories = []
+        for cat in filter_data['category']:
+            categories.append(Category.objects.get(title=cat))
+        kwargs['product_cat__in'] = categories
+    products = Product.objects.filter(**kwargs)
+    response = [VegetableSerializer(x, context={'request': request}).data for x in products]
+    return Response(response, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
 def add_order(request):
     order_info = json.loads(request.body.decode("utf-8"))
     current_customer = Customer.objects.get(telegram_id=order_info['customer_tg_id'])
