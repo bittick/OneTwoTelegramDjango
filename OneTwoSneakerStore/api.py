@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 import json
+from django.forms.models import model_to_dict
 
 
 class SneakersViewSet(viewsets.ModelViewSet):
@@ -15,38 +16,29 @@ class SneakersViewSet(viewsets.ModelViewSet):
     serializer_class = SneakersSerializer
 
     def get_queryset(self):
-
-        # filter_params = json.loads(self.request.body.decode("utf-8"))
-
-        print(self.request.body)
-
         queryset = Sneaker.objects.all()
-        # sneaker_id = filter_params['id']
-        # brand = filter_params['brand']
-        # gender = filter_params['gender']
-        # max_price = filter_params['max_price']
-        # min_price = filter_params['min_price']
-        # sizes = filter_params['sizes']
-        #
-        # if gender == 'M':
-        #     queryset = queryset.exclude(gender='W')
-        # elif gender == 'W':
-        #     queryset = queryset.exclude(gender='M')
-        #
-        # if sneaker_id is not None:
-        #     queryset = queryset.filter(id=sneaker_id)
-        #
-        # if brand is not None:
-        #     queryset = queryset.filter(brand=brand)
-        #
-        # if max_price is not None:
-        #     queryset = queryset.filter(price__lte=max_price)
-        #
-        # if min_price is not None:
-        #     queryset = queryset.filter(price__gte=min_price)
-        #
-        # if sizes is not None:
-        #     queryset = queryset.filter()
+        sneaker_id = self.request.query_params.get('id')
+        brand = self.request.query_params.get('brand')
+        gender = self.request.query_params.get('gender')
+        max_price = self.request.query_params.get('max')
+        min_price = self.request.query_params.get('min')
+
+        if gender == 'M':
+            queryset = queryset.exclude(gender='W')
+        elif gender == 'W':
+            queryset = queryset.exclude(gender='M')
+
+        if sneaker_id is not None:
+            queryset = queryset.filter(id=sneaker_id)
+
+        if brand is not None:
+            queryset = queryset.filter(brand=brand)
+
+        if max_price is not None:
+            queryset = queryset.filter(price__lte=max_price)
+
+        if min_price is not None:
+            queryset = queryset.filter(price__gte=min_price)
 
         return queryset
 
@@ -91,8 +83,35 @@ def check_server(request):
 
 
 @api_view(['GET'])
-def get_sneakers(request):
-    print(request.body)
-    for i in Sneaker.objects.all():
-        print(i.brand)
-    return Response(status=status.HTTP_200_OK)
+def filter_sneakers(request):
+    filter_data = json.loads(request.body)
+    keys = list(filter_data.keys())
+    kwargs = {}
+    response = []
+    if keys == ['sizes']:
+        sneakers = Sneaker.objects.all()
+    else:
+        if 'brand' in keys:
+            kwargs['brand'] = Brand.objects.get(title=filter_data['brand'])
+        if 'gender' in keys:
+            kwargs['gender'] = filter_data['gender']
+        if 'color' in keys:
+            kwargs['color'] = filter_data['color']
+        if 'min_price' in keys:
+            kwargs['price__gte'] = filter_data['min_price']
+        if 'max_price' in keys:
+            kwargs['price__lte'] = filter_data['max_price']
+        sneakers = Sneaker.objects.filter(**kwargs)
+    if 'sizes' in keys:
+        sizes = []
+        for i in filter_data['sizes']:
+            sizes.append('size_' + i)
+        tmp = []
+        for sneaker in sneakers:
+            for size in sizes:
+                if getattr(sneaker.sizes, size, False):
+                    tmp.append(sneaker)
+                    break
+        sneakers = tmp
+    response = [SneakersSerializer(x).data for x in sneakers]
+    return Response(response, status=status.HTTP_200_OK)
