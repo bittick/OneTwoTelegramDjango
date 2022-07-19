@@ -24,7 +24,7 @@ class OrderItemInline(admin.TabularInline):
 
 @admin.register(Product)
 class VegetableAdmin(admin.ModelAdmin):
-    list_display = ('title', 'price', 'product_cat')
+    list_display = ('title', 'price','product_cat')
 
     def get_images(self, obj):
         html_images = f'''<img src={obj.image1.url} height="100">'''
@@ -54,7 +54,7 @@ class OrderListAdmin(admin.ModelAdmin):
     get_phone_number.short_description = 'Номер телефона клиента'
     get_total_cost.short_description = 'Стоимость заказа'
 
-    fields = ('customer', 'get_phone_number', 'comment', 'shipping_address', 'is_paid','delivery_required' , 'is_delivered','registration_date', 'edit_date', 'get_total_cost')
+    fields = ('customer', 'get_phone_number', 'comment' , 'shipping_address', 'is_paid','delivery_required' , 'is_delivered','registration_date', 'edit_date', 'get_total_cost')
     list_display = ('registration_date', 'customer', 'is_paid', 'is_delivered', 'delivery_required', 'get_phone_number')
     search_fields = ('customer', )
     readonly_fields = ('registration_date', 'edit_date', 'get_phone_number', 'get_total_cost')
