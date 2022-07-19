@@ -59,9 +59,12 @@ def filter_sneakers(request):
         sneakers = Sneaker.objects.all()
     else:
         if 'brand' in keys:
-            kwargs['brand'] = Brand.objects.get(title=filter_data['brand'])
+            brands = []
+            for brand in filter_data['brand']:
+                brands.append(Brand.objects.get(title=brand))
+            kwargs['brand__in'] = brands
         if 'color' in keys:
-            kwargs['color'] = filter_data['color']
+            kwargs['color__in'] = filter_data['color']
         if 'min_price' in keys:
             kwargs['price__gte'] = filter_data['min_price']
         if 'max_price' in keys:
