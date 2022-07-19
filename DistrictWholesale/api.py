@@ -88,3 +88,13 @@ def add_customer(request):
     )
     customer.save()
     return Response({'customer_id': customer.id}, status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def get_categories(request):
+    categories = Category.objects.all()
+    filter_category = []
+    for category in categories:
+        if Product.objects.filter(product_cat=category).exists():
+            filter_category.append(category.title)
+    return Response(filter_category, status=status.HTTP_200_OK)

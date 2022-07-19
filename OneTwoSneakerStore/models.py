@@ -10,6 +10,10 @@ def id_generator(size=8):
 
 
 class Brand(models.Model):
+    class Meta:
+        verbose_name = 'Бренд'
+        verbose_name_plural = 'Бренды'
+
     title = models.CharField(max_length=50, verbose_name='Название бренда')
 
     def __str__(self):
