@@ -68,3 +68,9 @@ class CustomerAdmin(admin.ModelAdmin):
     fields = ('name', 'telegram_id', 'phone_number', 'discount')
     list_display = ('name', 'telegram_id', 'phone_number', 'discount')
     search_fields = ('name', )
+
+
+@admin.register(Category)
+class CustomerAdmin(admin.ModelAdmin):
+    fields = ('title', )
+    list_display = ('title', )

@@ -31,9 +31,9 @@ class Product(models.Model):
     )
     gender = models.CharField(max_length=2, choices=GENDERS, verbose_name='Пол')
     color = models.CharField(max_length=30, verbose_name='Цвета')
-    producing_country = models.CharField(max_length=50)
-    tags = models.CharField(max_length=1000)
-    composition = models.CharField(max_length=1000)
+    producing_country = models.CharField(max_length=50, verbose_name='Страна-производитель')
+    tags = models.CharField(max_length=1000, verbose_name='Тэги')
+    composition = models.CharField(max_length=1000, verbose_name='Материалы')
 
     def __str__(self):
         return self.title

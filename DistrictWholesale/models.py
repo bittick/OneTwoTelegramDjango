@@ -1,6 +1,17 @@
 from django.db import models
 
 
+class Category(models.Model):
+    class Meta:
+        verbose_name = 'Категория товаров'
+        verbose_name_plural = 'Категории товаров'
+
+    title = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.title
+
+
 class Product(models.Model):
     class Meta:
         verbose_name = 'продукт'
@@ -14,6 +25,7 @@ class Product(models.Model):
         ("UN", "штука")
     )
     weight = models.CharField(max_length=2, choices=WEIGHTS, verbose_name='Еденица измерения массы')
+    product_cat = models.ForeignKey(to=Category, on_delete=models.PROTECT, blank=True, null=True, verbose_name='Категория товара')
 
     def __str__(self):
         return self.title
