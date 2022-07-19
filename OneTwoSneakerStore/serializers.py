@@ -2,6 +2,12 @@ from rest_framework import serializers
 from .models import *
 
 
+class BrandSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Brand
+        exclude = ('title', )
+
+
 class SizesSneakerSerializer(serializers.ModelSerializer):
     class Meta:
         model = SizesSneaker
@@ -10,6 +16,7 @@ class SizesSneakerSerializer(serializers.ModelSerializer):
 
 class SneakersSerializer(serializers.ModelSerializer):
     sizes = SizesSneakerSerializer()
+    brand = serializers.StringRelatedField()
 
     class Meta:
         model = Sneaker
