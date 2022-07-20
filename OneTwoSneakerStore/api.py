@@ -71,6 +71,8 @@ def filter_sneakers(request):
             sneakers = sneakers.exclude(gender='W')
         elif filter_data['gender'] == 'W':
             sneakers = sneakers.exclude(gender='M')
+        elif filter_data['gender'] == 'U':
+            sneakers = sneakers.filter(gender='U')
     if 'sizes' in keys and filter_data['sizes'] != []:
         sizes = []
         for i in filter_data['sizes']:
