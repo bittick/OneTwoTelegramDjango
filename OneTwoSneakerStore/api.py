@@ -67,9 +67,9 @@ def filter_sneakers(request):
         kwargs['price__lte'] = filter_data['max_price']
     sneakers = Sneaker.objects.filter(**kwargs)
     if 'gender' in keys:
-        if filter_data == 'M':
+        if filter_data['gender'] == 'M':
             sneakers = sneakers.exclude(gender='W')
-        elif filter_data == 'W':
+        elif filter_data['gender'] == 'W':
             sneakers = sneakers.exclude(gender='M')
     if 'sizes' in keys and filter_data['sizes'] != []:
         sizes = []
