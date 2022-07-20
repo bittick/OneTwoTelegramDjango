@@ -54,12 +54,12 @@ def filter_sneakers(request):
     keys = list(filter_data.keys())
     kwargs = {}
     response = []
-    if 'brand' in keys:
+    if 'brand' in keys and filter_data['brand'] != []:
         brands = []
         for brand in filter_data['brand']:
             brands.append(Brand.objects.get(title=brand))
         kwargs['brand__in'] = brands
-    if 'color' in keys:
+    if 'color' in keys and filter_data['color'] != []:
         kwargs['color__in'] = filter_data['color']
     if 'min_price' in keys:
         kwargs['price__gte'] = filter_data['min_price']
@@ -71,7 +71,7 @@ def filter_sneakers(request):
             sneakers = sneakers.exclude(gender='W')
         elif filter_data == 'W':
             sneakers = sneakers.exclude(gender='M')
-    if 'sizes' in keys:
+    if 'sizes' in keys and filter_data['sizes'] != []:
         sizes = []
         for i in filter_data['sizes']:
             sizes.append('size_' + i)

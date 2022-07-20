@@ -37,10 +37,11 @@ class CustomersViewSet(viewsets.ModelViewSet):
 
 @api_view(['POST'])
 def filter_products(request):
+    print(request.body)
     filter_data = json.loads(request.body)
     keys = list(filter_data.keys())
     kwargs = {}
-    if 'category' in keys:
+    if 'category' in keys and filter_data['category'] != []:
         categories = []
         for cat in filter_data['category']:
             categories.append(Category.objects.get(title=cat))
