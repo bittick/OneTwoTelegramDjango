@@ -73,6 +73,11 @@ def filter_sneakers(request):
             sneakers = sneakers.exclude(gender='M')
         elif filter_data['gender'] == 'U':
             sneakers = sneakers.filter(gender='U')
+    if 'sort' in keys:
+        if filter_data['sort'] == 'increase':
+            sneakers = sneakers.order_by('price')
+        elif filter_data['sort'] == 'decrease':
+            sneakers = sneakers.order_by('-price')
     if 'sizes' in keys and filter_data['sizes'] != []:
         sizes = []
         for i in filter_data['sizes']:
